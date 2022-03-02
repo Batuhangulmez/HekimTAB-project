@@ -2,15 +2,19 @@ import express from 'express'
 import mongoose from 'mongoose'
 import cors from 'cors'
 import dotenv from 'dotenv'
+import userRouter from './routers/userRouter.js'
+
 
 dotenv.config()
 
 const app = express()
 
-app.get('/', (req, res) => {
-    res.json({ message: 'messages' })
-})
+app.use(express.json())
+app.use("/users", userRouter)
 
 app.listen(process.env.PORT, () => {
-    console.log(`${process.env.PORT}. PORTTA DİNLİYOR`)
+    // connect to database
+    mongoose.connect(process.env.MONGO_URI)
+        .then(() => console.log('connected DB'))
+        .catch((err) => console.log(err))
 })
