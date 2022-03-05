@@ -2,10 +2,12 @@ import React, { useState } from 'react'
 import '../css_Modules/AuthScreen.css'
 import { Container } from 'react-bootstrap'
 import { login } from '../axiox'
+import { useNavigate } from 'react-router-dom'
 
 
 
 const AuthScreen = ({ setUser }) => {
+    const navigate = useNavigate();
 
     const [FormData, setFormData] = useState({
         email: "",
@@ -19,7 +21,15 @@ const AuthScreen = ({ setUser }) => {
                     onSubmit={(e) => {
                         e.preventDefault();
 
-                        login(FormData).then((res) => { console.log(res) }).catch((err) => { console.log(err); })
+                        login(FormData)
+                            .then((res) => {
+                                localStorage.setItem('user', JSON.stringify(res.data.user))
+                                setUser(res.data.user)
+                                navigate('/')
+                            })
+                            .catch((err) => {
+                                console.log(err.response.data.message)
+                            })
                     }}
                 >
                     <h2 >Giriş Yap</h2>

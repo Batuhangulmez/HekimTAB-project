@@ -10,10 +10,10 @@ import { useState } from 'react';
 
 
 function App() {
-  const [User, setUser] = useState(null)
+  const [user, setUser] = useState(null)
   return (
     <Router>
-      <Header />
+      <Header user={user} setUser={setUser} />
       <main className='py-3'>
         <Container>
           <Routes>

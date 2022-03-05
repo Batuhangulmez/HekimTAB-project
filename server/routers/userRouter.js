@@ -4,10 +4,9 @@ import User from '../models/userModel.js'
 
 const router = express.Router();
 
-// localhost:3000/users 'a yapılan post isteği
+// localhost:3001/users 'a yapılan post isteği
 router.post('/signup', async (req, res) => {
     try {
-        console.log(req.body);
         const { fullname, email, password, userType } = req.body;
 
         const userExists = await User.findOne({ email })
@@ -25,7 +24,6 @@ router.post('/signup', async (req, res) => {
 
         return res.status(201).json(createdUser);
     } catch (error) {
-        console.log(error);
         return res.json({ message: ' create user failed' })
     }
 })
