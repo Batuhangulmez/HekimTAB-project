@@ -27,8 +27,8 @@ label{
     margin: 12px 36px
 }
 label div{
-    margin: auto;
     padding: 0 5px;
+    margin: auto;
 }
 input:required{
     width: auto;
@@ -37,5 +37,9 @@ input:optional{
     margin: 12px 36px;
     margin-bottom: 24px;
     border-radius: 15px;
+    padding: 6px 0;
+}
+textarea{
+    width: auto;
     padding: 6px 0;
 }

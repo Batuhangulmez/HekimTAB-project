@@ -7,6 +7,7 @@ import { Container } from 'react-bootstrap';
 import HomeScreen from './Screens/HomeScreen';
 import AuthScreen from './Screens/AuthScreen';
 import { useState } from 'react';
+import PostScreen from './Screens/PostScreen';
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
           <Routes>
             <Route path='/' element={<HomeScreen />} exact />
             <Route path='/auth' element={<AuthScreen setUser={setUser} />} />
+            <Route path='/post' element={<PostScreen />} />
           </Routes>
         </Container>
       </main>
