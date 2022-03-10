@@ -2,6 +2,8 @@ import express from "express"
 import mongoose from "mongoose"
 import Post from "../models/postModel.js"
 
+
+// http://localhost:3001/posts
 const router = express.Router()
 
 
@@ -11,7 +13,6 @@ router.get('/', async (req, res) => {
         const posts = await Post.find()
         res.status(200).json(posts)
 
-        res.json(posts)
     } catch (error) {
         res.status(404).json({ message: error.message })
     }
@@ -51,12 +52,38 @@ router.post('/', async (req, res) => {
 
 // update a post
 router.put('/:id', async (req, res) => {
-    res.json({ message: 'update a post' })
+    try {
+        const { id } = req.params
+
+        if (!mongoose.Types.ObjectId.isValid(id))
+            res.status(404).json({ message: 'post id is not valid' })
+
+        const { category, content, creator } = req.body
+
+        const updatePost = await Post.findByIdAndUpdate(id, { category, content, creator, _id: id }, { new: true })
+
+        res.status(200).json(updatePost)
+    } catch (error) {
+        console.log(error);
+        res.json({ message: "update failed" })
+    }
 })
 
 // delete a post
 router.delete('/:id', async (req, res) => {
-    res.json({ message: 'delete a post' })
+    try {
+        const { id } = req.params
+
+        if (!mongoose.Types.ObjectId.isValid(id))
+            res.status(404).json({ message: 'post id is not valid' })
+
+        await Post.findByIdAndDelete(id)
+
+        res.status(200).json({ message: 'Post has benn deleted' })
+    } catch (error) {
+        console.log(error.message);
+        res.json({ message: 'post delete failed' })
+    }
 })
 
 
