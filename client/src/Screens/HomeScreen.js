@@ -1,45 +1,44 @@
-import React, { useEffect, useState } from 'react'
-import Post from '../Components/Post'
-import { fetchPost } from '../axiox/index.js'
+import React, { useEffect, useState } from "react";
+import Post from "../Components/Post";
+import "../css_Modules/HomeScreen.css";
 
-import { Spinner, Row, Col } from 'react-bootstrap'
+import { useDispatch, useSelector } from "react-redux";
+import { fetchPosts } from "../actions/postActions";
+
+import { Spinner, Row, Col, Container } from "react-bootstrap";
 
 const HomeScreen = () => {
+  const dispatch = useDispatch();
 
-    const [posts, setPosts] = useState([])
-    useEffect(() => {
-        const getPosts = async () => {
-            const { data } = await fetchPost()
-            console.log(data);
-            setPosts(data);
-        }
-        getPosts()
-    }, [])
+  useEffect(() => {
+    dispatch(fetchPosts());
+  }, [dispatch]);
 
+  const posts = useSelector((state) => state.posts);
 
-    return (
-        <>
-            <h1>En güncel anılar</h1>
-            {!posts.length ? (
-                <Spinner animation='border' />
-            ) : (
-                <Row>
-                    {posts.map((post) => (
-                        <Col
-                            sm={12}
-                            md={6}
-                            lg={4}
-                            xl={3}
-                            className='m-auto'
-                            key={post._id}
-                        >
-                            <Post post={post} />
-                        </Col>
-                    ))}
-                </Row>
-            )}
-        </>
-    )
-}
+  return (
+    <main className="homeContainer">
+      <h1>Posts</h1>
+      {!posts.length ? (
+        <Spinner animation="border" />
+      ) : (
+        <Row>
+          {posts.map((post) => (
+            <Col
+              sm={12}
+              md={12}
+              lg={12}
+              xl={12}
+              className="m-auto"
+              key={post._id}
+            >
+              <Post post={post} />
+            </Col>
+          ))}
+        </Row>
+      )}
+    </main>
+  );
+};
 
-export default HomeScreen
+export default HomeScreen;

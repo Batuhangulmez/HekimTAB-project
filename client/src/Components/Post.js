@@ -1,8 +1,17 @@
 import React from 'react'
+import { Card } from 'react-bootstrap'
 
 const Post = ({ post }) => {
     return (
-        <div>{post.category}</div>
+        <Card>
+            <Card.Header>{post.creator}</Card.Header>
+            <Card.Body>
+                <Card.Title>{post.category}</Card.Title>
+                <Card.Text>
+                    {post.content}
+                </Card.Text>
+            </Card.Body>
+        </Card>
     )
 }
 
