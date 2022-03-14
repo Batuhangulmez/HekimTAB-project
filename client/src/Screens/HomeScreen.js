@@ -5,16 +5,15 @@ import "../css_Modules/HomeScreen.css";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPosts } from "../actions/postActions";
 
-import { Spinner, Row, Col, Container } from "react-bootstrap";
+import { Spinner, Row, Col } from "react-bootstrap";
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
+  const posts = useSelector((state) => state.posts);
 
   useEffect(() => {
     dispatch(fetchPosts());
   }, [dispatch]);
-
-  const posts = useSelector((state) => state.posts);
 
   return (
     <main className="homeContainer">

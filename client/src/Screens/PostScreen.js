@@ -3,7 +3,9 @@ import ReactFileBase64 from "react-file-base64";
 import "../css_Modules/PostScreen.css";
 import { Container } from "react-bootstrap";
 
-import * as api from "../axiox/index.js";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { createPost } from "../actions/postActions";
 
 const PostScreen = () => {
   const [postData, setPostData] = useState({
@@ -12,13 +14,19 @@ const PostScreen = () => {
     image: "",
   });
 
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   return (
     <main className="postMain">
       <form
         className="form"
         onSubmit={(e) => {
           e.preventDefault();
-          api.createPost(postData);
+
+          dispatch(createPost(postData));
+
+          navigate("/");
         }}
       >
         <h2>Vaka paylaş</h2>
