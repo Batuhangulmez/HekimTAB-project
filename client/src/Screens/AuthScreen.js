@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import "../css_Modules/AuthScreen.css";
-import { Container } from "react-bootstrap";
+import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { login } from "../axiox";
 import { useNavigate } from "react-router-dom";
 
 const AuthScreen = ({ setUser }) => {
   const navigate = useNavigate();
+  const [login, setLogin] = useState(true);
 
   const [FormData, setFormData] = useState({
     email: "",
@@ -13,55 +13,133 @@ const AuthScreen = ({ setUser }) => {
   });
 
   return (
-    <Container className="authContainer">
-      <main className="authMain">
-        <form
-          className="form"
-          onSubmit={(e) => {
-            e.preventDefault();
+    <>
+      <Container className="authContainer">
+        <Row className="justify-content-center">
+          <Col xs={12} md={6}>
+            {login ? (
+              <Form className="align-content-center mt-3">
+                <form
+                  className="form"
+                  onSubmit={(e) => {
+                    e.preventDefault();
 
-            login(FormData)
-              .then((res) => {
-                localStorage.setItem("user", JSON.stringify(res.data.user));
-                setUser(res.data.user);
-                navigate("/");
-              })
-              .catch((err) => {
-                console.log(err.response.data.message);
-              });
-          }}
-        >
-          <h2>Giriş Yap</h2>
-          <label>
-            <div> Email</div>
-            <input
-              required
-              type="email"
-              placeholder="Email Adresi"
-              name="email"
-              onChange={(e) =>
-                setFormData({ ...FormData, email: e.target.value })
-              }
-            />
-          </label>
+                    login(FormData)
+                      .then((res) => {
+                        localStorage.setItem(
+                          "user",
+                          JSON.stringify(res.data.user)
+                        );
+                        setUser(res.data.user);
+                        navigate("/");
+                      })
+                      .catch((err) => {
+                        console.log(err.response.data.message);
+                      });
+                  }}
+                >
+                  <h2>Giriş Yap</h2>
+                  <Form.Group>
+                    <Form.Label> Email</Form.Label>
+                    <Form.Control
+                      required
+                      type="email"
+                      placeholder="Email Adresi"
+                      name="email"
+                      onChange={(e) =>
+                        setFormData({ ...FormData, email: e.target.value })
+                      }
+                    />
+                  </Form.Group>
 
-          <label>
-            <div>Şifre</div>
-            <input
-              required
-              type="password"
-              placeholder="Şifre"
-              name="password"
-              onChange={(e) =>
-                setFormData({ ...FormData, password: e.target.value })
-              }
-            />
-          </label>
+                  <Form.Group>
+                    <Form.Label>Şifre</Form.Label>
+                    <Form.Control
+                      required
+                      type="password"
+                      placeholder="Şifre"
+                      name="password"
+                      onChange={(e) =>
+                        setFormData({ ...FormData, password: e.target.value })
+                      }
+                    />
+                  </Form.Group>
+                  <Form.Control type="Submit" value="Giriş Yap" />
+                  <Form.Group>
+                    <Form.Label className="Form.GroupText">
+                      Henüz bir hesabın yok mu ?{" "}
+                      <span
+                        style={{ fontWeight: "bold", cursor: "pointer" }}
+                        onClick={(e) => setLogin(!login)}
+                      >
+                        {" "}
+                        Hesap oluştur
+                      </span>
+                    </Form.Label>
+                  </Form.Group>
+                </form>
+              </Form>
+            ) : (
+              <Form className="align-content-center mt-3">
+                <h1 className="text-center mb-3">Kayıt ol</h1>
 
-          <input type="Submit" value="Giriş Yap" />
-        </form>
-      </main>
-    </Container>
+                <Form.Group style={{ display: "flex" }}>
+                  <Form.Control
+                    type="text"
+                    placeholder="İlk adınız"
+                    className="mr-2"
+                  ></Form.Control>
+
+                  <Form.Control
+                    type="text"
+                    placeholder="Soy adınız"
+                    className="ml-2"
+                  ></Form.Control>
+                </Form.Group>
+
+                <Form.Group>
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control
+                    type="email"
+                    placeholder="Email adresinizi girin"
+                  ></Form.Control>
+                </Form.Group>
+
+                <Form.Group>
+                  <Form.Label>Şifre</Form.Label>
+                  <Form.Control
+                    type="password"
+                    placeholder="Şifrenizi girin"
+                  ></Form.Control>
+                </Form.Group>
+
+                <Form.Group>
+                  <Form.Label>Şifrenizi doğrulayın</Form.Label>
+                  <Form.Control
+                    type="password"
+                    placeholder="Şifrenizi doğrulayın"
+                  ></Form.Control>
+                </Form.Group>
+
+                <Button block type="submit">
+                  Kayıt ol
+                </Button>
+
+                <Form.Text as="large" className="text-center mt-2">
+                  Zaten bir hesabınız var mı?{" "}
+                  <span
+                    onClick={(e) => setLogin(!false)}
+                    style={{ fontWeight: "bold", cursor: "pointer" }}
+                  >
+                    Giriş yapın
+                  </span>
+                </Form.Text>
+              </Form>
+            )}
+          </Col>
+        </Row>
+      </Container>
+    </>
   );
 };
 

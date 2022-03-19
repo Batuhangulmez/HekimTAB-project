@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Post from "../Components/Post";
-import "../css_Modules/HomeScreen.css";
+import styles from "../mystyle.module.css";
 
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPosts } from "../actions/postActions";
@@ -16,7 +16,7 @@ const HomeScreen = () => {
   }, [dispatch]);
 
   return (
-    <main className="homeContainer">
+    <main className={styles.homeContainer}>
       <h1>Posts</h1>
       {!posts.length ? (
         <Spinner animation="border" />

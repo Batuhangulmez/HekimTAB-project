@@ -1,0 +1,11 @@
+.homeContainer {
+  display: flex;
+  flex-direction: column;
+}
+.postMain {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}

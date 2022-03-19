@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ReactFileBase64 from "react-file-base64";
-import "../css_Modules/PostScreen.css";
-import { Container } from "react-bootstrap";
+import { Container, Form, Button } from "react-bootstrap";
+import styles from "../mystyle.module.css";
 
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -18,9 +18,8 @@ const PostScreen = () => {
   const dispatch = useDispatch();
 
   return (
-    <main className="postMain">
-      <form
-        className="form"
+    <>
+      <Form
         onSubmit={(e) => {
           e.preventDefault();
 
@@ -29,10 +28,12 @@ const PostScreen = () => {
           navigate("/");
         }}
       >
-        <h2>Vaka paylaş</h2>
-        <label>
-          <div> Kategori</div>
-          <input
+        <Form.Group>
+          <h1>Vaka Paylaş</h1>
+        </Form.Group>
+        <Form.Group>
+          <Form.Label> Kategori</Form.Label>
+          <Form.Control
             required
             type="text"
             placeholder="Kategori yaz"
@@ -41,11 +42,11 @@ const PostScreen = () => {
               setPostData({ ...postData, category: e.target.value })
             }
           />
-        </label>
+        </Form.Group>
 
-        <label>
-          <div>İçerik</div>
-          <textarea
+        <Form.Group>
+          <Form.Label>İçerik</Form.Label>
+          <Form.Control
             type="text"
             placeholder="..."
             name="content"
@@ -54,19 +55,22 @@ const PostScreen = () => {
               setPostData({ ...postData, content: e.target.value })
             }
           />
-        </label>
+        </Form.Group>
 
-        <ReactFileBase64
-          type="file"
-          multiple={false}
-          onDone={({ base64 }) => {
-            setPostData({ ...postData, image: base64 });
-          }}
-        />
-
-        <input type="Submit" value="Paylaş" />
-      </form>
-    </main>
+        <Form.Group>
+          <ReactFileBase64
+            type="file"
+            multiple={false}
+            onDone={({ base64 }) => {
+              setPostData({ ...postData, image: base64 });
+            }}
+          />
+        </Form.Group>
+        <Button type="submit" block>
+          Paylaş
+        </Button>
+      </Form>
+    </>
   );
 };
 
