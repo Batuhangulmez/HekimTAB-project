@@ -1,27 +1,55 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
-import { login } from "../axiox";
+
+import { useDispatch, useSelector } from "react-redux";
+import { signUp, Login } from "../actions/userActions";
+
 import { useNavigate } from "react-router-dom";
+import Message from "../Components/Message.js";
 
-const AuthScreen = ({ setUser }) => {
-  const navigate = useNavigate();
-  const [login, setLogin] = useState(true);
+const myStyle = {
+  rowStyle: "justify-content-center",
+  formStyle: "align-content-center mt-3",
+  controlStyle: "mb-2",
+  h2Style: "text-center mb-3",
+};
 
-  const [FormData, setFormData] = useState({
+const AuthScreen = () => {
+  const userState = useSelector((state) => state.user);
+  const { error } = userState;
+
+  const [form, setForm] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const [loginform, setLoginform] = useState({
     email: "",
     password: "",
   });
+  const [login, setLogin] = useState(true);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   return (
     <>
       <Container className="authContainer">
-        <Row className="justify-content-center">
+        <Row className={myStyle.rowStyle}>
           <Col xs={12} md={6}>
             {login ? (
-              <Form className="align-content-center mt-3">
-                <form
-                  className="form"
-                  onSubmit={(e) => {
+              <Form
+                className={myStyle.formStyle}
+                onSubmit={(e) => {
+                  e.preventDefault();
+
+                  dispatch(Login(loginform));
+                }}
+              >
+                {/* onSubmit={(e) => {
                     e.preventDefault();
 
                     login(FormData)
@@ -36,88 +64,115 @@ const AuthScreen = ({ setUser }) => {
                       .catch((err) => {
                         console.log(err.response.data.message);
                       });
-                  }}
-                >
-                  <h2>Giriş Yap</h2>
-                  <Form.Group>
-                    <Form.Label> Email</Form.Label>
-                    <Form.Control
-                      required
-                      type="email"
-                      placeholder="Email Adresi"
-                      name="email"
-                      onChange={(e) =>
-                        setFormData({ ...FormData, email: e.target.value })
-                      }
-                    />
-                  </Form.Group>
+                  }} */}
 
-                  <Form.Group>
-                    <Form.Label>Şifre</Form.Label>
-                    <Form.Control
-                      required
-                      type="password"
-                      placeholder="Şifre"
-                      name="password"
-                      onChange={(e) =>
-                        setFormData({ ...FormData, password: e.target.value })
-                      }
-                    />
-                  </Form.Group>
-                  <Form.Control type="Submit" value="Giriş Yap" />
-                  <Form.Group>
-                    <Form.Label className="Form.GroupText">
-                      Henüz bir hesabın yok mu ?{" "}
-                      <span
-                        style={{ fontWeight: "bold", cursor: "pointer" }}
-                        onClick={(e) => setLogin(!login)}
-                      >
-                        {" "}
-                        Hesap oluştur
-                      </span>
-                    </Form.Label>
-                  </Form.Group>
-                </form>
+                <h2 className={myStyle.h2Style}>Giriş Yap</h2>
+                {error && <Message>{error}</Message>}
+                <Form.Group>
+                  <Form.Label> Email</Form.Label>
+                  <Form.Control
+                    className={myStyle.controlStyle}
+                    type="email"
+                    placeholder="Email Adresi"
+                    name="email"
+                    onChange={(e) =>
+                      setLoginform({ ...loginform, email: e.target.value })
+                    }
+                  />
+                </Form.Group>
+
+                <Form.Group>
+                  <Form.Label>Şifre</Form.Label>
+                  <Form.Control
+                    className={myStyle.controlStyle}
+                    type="password"
+                    placeholder="Şifre"
+                    name="password"
+                    onChange={(e) =>
+                      setLoginform({ ...loginform, password: e.target.value })
+                    }
+                  />
+                </Form.Group>
+                <Button block type="submit">
+                  giriş yap
+                </Button>
+                <Form.Group>
+                  <Form.Label>
+                    Henüz bir hesabın yok mu ?{" "}
+                    <span
+                      style={{ fontWeight: "bold", cursor: "pointer" }}
+                      onClick={(e) => setLogin(!login)}
+                    >
+                      {" "}
+                      Hesap oluştur
+                    </span>
+                  </Form.Label>
+                </Form.Group>
               </Form>
             ) : (
-              <Form className="align-content-center mt-3">
-                <h1 className="text-center mb-3">Kayıt ol</h1>
+              <Form
+                className={myStyle.controlStyle}
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  dispatch(signUp(form));
+                }}
+              >
+                <h2 className={myStyle.h2Style}>Kayıt ol</h2>
+                {error && <Message>{error}</Message>}
 
                 <Form.Group style={{ display: "flex" }}>
                   <Form.Control
+                    className="m-2"
                     type="text"
                     placeholder="İlk adınız"
-                    className="mr-2"
+                    onChange={(e) =>
+                      setForm({ ...form, firstName: e.target.value })
+                    }
                   ></Form.Control>
 
                   <Form.Control
+                    className="m-2"
                     type="text"
                     placeholder="Soy adınız"
-                    className="ml-2"
+                    onChange={(e) =>
+                      setForm({ ...form, lastName: e.target.value })
+                    }
                   ></Form.Control>
                 </Form.Group>
 
                 <Form.Group>
                   <Form.Label>Email</Form.Label>
                   <Form.Control
+                    className={myStyle.controlStyle}
                     type="email"
                     placeholder="Email adresinizi girin"
+                    onChange={(e) =>
+                      setForm({ ...form, email: e.target.value })
+                    }
                   ></Form.Control>
                 </Form.Group>
 
                 <Form.Group>
                   <Form.Label>Şifre</Form.Label>
                   <Form.Control
+                    className={myStyle.controlStyle}
                     type="password"
                     placeholder="Şifrenizi girin"
+                    onChange={(e) =>
+                      setForm({ ...form, password: e.target.value })
+                    }
                   ></Form.Control>
                 </Form.Group>
 
                 <Form.Group>
                   <Form.Label>Şifrenizi doğrulayın</Form.Label>
                   <Form.Control
+                    className={myStyle.controlStyle}
                     type="password"
                     placeholder="Şifrenizi doğrulayın"
+                    onChange={(e) =>
+                      setForm({ ...form, confirmPassword: e.target.value })
+                    }
                   ></Form.Control>
                 </Form.Group>
 

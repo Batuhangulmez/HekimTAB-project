@@ -11,15 +11,14 @@ import AuthScreen from "./Screens/AuthScreen";
 import PostScreen from "./Screens/PostScreen";
 
 function App() {
-  const [user, setUser] = useState(null);
   return (
     <Router>
-      <Header user={user} setUser={setUser} />
+      <Header />
       <section className="py-3">
         <Container>
           <Routes>
             <Route path="/" element={<HomeScreen />} exact />
-            <Route path="/auth" element={<AuthScreen setUser={setUser} />} />
+            <Route path="/auth" element={<AuthScreen />} />
             <Route path="/post" element={<PostScreen />} />
           </Routes>
         </Container>

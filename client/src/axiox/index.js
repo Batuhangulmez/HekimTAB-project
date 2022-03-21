@@ -4,8 +4,11 @@ const API = axios.create({
   baseURL: "http://localhost:3001",
 });
 
-export const login = async (formData) =>
-  await API.post("/users/signin", formData);
+export const Login = async (userData) =>
+  await API.post("/users/signin", userData);
+
+export const signUp = async (newUser) =>
+  await API.post("/users/signup", newUser);
 
 export const fetchPosts = async () => await API.get("/posts");
 

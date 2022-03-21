@@ -1,22 +1,22 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
 
+import { createStore, applyMiddleware, combineReducers } from "redux";
+import { Provider } from "react-redux";
+import { composeWithDevTools } from "redux-devtools-extension";
+import thunk from "redux-thunk";
 
-import { createStore, applyMiddleware, combineReducers } from 'redux'
-import { Provider } from 'react-redux';
-import { composeWithDevTools } from 'redux-devtools-extension'
-import thunk from 'redux-thunk'
-
-import postReducer from './reducers/postReducer.js'
+import postReducer from "./reducers/postReducer.js";
+import usersReducer from "./reducers/usersReducer.js";
 
 const reducer = combineReducers({
-  posts: postReducer
-})
+  posts: postReducer,
+  user: usersReducer,
+});
 
-const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)))
-
+const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
 
 ReactDOM.render(
   <React.StrictMode>
@@ -24,5 +24,5 @@ ReactDOM.render(
       <App />
     </Provider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
