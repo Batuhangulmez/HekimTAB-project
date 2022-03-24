@@ -1,6 +1,7 @@
 import {
   AUTH,
   SIGNUP_FAIL,
+  SIGNIN_FAIL,
   LOGOUT,
   LOGOUT_FAILED,
 } from "../constans/actionsConstant";
@@ -13,8 +14,11 @@ export const signUp = (formData) => async (dispatch) => {
     dispatch({ type: AUTH, payload: data });
   } catch (error) {
     dispatch({
-      tpye: SIGNUP_FAIL,
-      payload: error.data,
+      type: SIGNUP_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
     });
   }
 };
@@ -26,8 +30,11 @@ export const Login = (formData) => async (dispatch) => {
     dispatch({ type: AUTH, payload: data });
   } catch (error) {
     dispatch({
-      tpye: SIGNUP_FAIL,
-      payload: error,
+      type: SIGNIN_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
     });
   }
 };

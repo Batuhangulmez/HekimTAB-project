@@ -56,16 +56,41 @@ router.post("/signup", async (req, res) => {
 router.post("/signin", async (req, res) => {
   try {
     const { email, password } = req.body;
+
     const user = await User.findOne({ email });
-    if (!user) return res.status(400).json({ message: "user does not exist" });
+
+    if (!user) return res.status(404).json({ message: "user not found" });
 
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
-    if (!isPasswordCorrect)
-      return res.status(400).json({ message: "wrong Password" });
+    console.log(isPasswordCorrect);
 
-    return res.status(200).json({ user, message: "Authentication successful" });
+    if (!isPasswordCorrect)
+      return res
+        .status(404)
+        .json({ message: "check your login information and try again" });
+
+    const accessToken = jwt.sign(
+      { email: user.email, id: user._id },
+      process.env.ACCESS_TOKEN_SECRET,
+      { expiresIn: "3m" }
+    );
+
+    const refreshToken = jwt.sign(
+      { email: user.email, id: user._id },
+      process.env.REFRESH_TOKEN_SECRET
+    );
+
+    await tokenModel.findOneAndUpdate(
+      { userId: user._id },
+      {
+        refreshToken: refreshToken,
+      },
+      { new: true }
+    );
+
+    res.status(200).json({ user, accessToken });
   } catch (error) {
-    return res.status(400).json({ message: error.message });
+    res.status(500).json(error);
   }
 });
 
