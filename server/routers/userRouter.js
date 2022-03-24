@@ -69,4 +69,20 @@ router.post("/signin", async (req, res) => {
   }
 });
 
+router.get("/logout/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    await tokenModel.findOneAndUpdate(
+      { userId: id },
+      {
+        refreshToken: null,
+      },
+      { new: true }
+    );
+    res.status(200).json({ message: "logout complete" });
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
 export default router;
