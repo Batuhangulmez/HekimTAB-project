@@ -23,11 +23,12 @@ export const signUp = (formData) => async (dispatch) => {
   }
 };
 
-export const Login = (formData) => async (dispatch) => {
+export const Login = (formData, history) => async (dispatch) => {
   try {
     const { data } = await api.Login(formData);
 
     dispatch({ type: AUTH, payload: data });
+    history.push("/");
   } catch (error) {
     dispatch({
       type: SIGNIN_FAIL,

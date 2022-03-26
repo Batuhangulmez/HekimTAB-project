@@ -2,6 +2,61 @@
   display: flex;
   flex-direction: column;
 }
+.authContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 94vh;
+}
+
+.authContainer .logoContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.authContainer .Logo {
+  position: absolute;
+  height: 120px;
+  background-color: white;
+  border-radius: 12px;
+  padding: 8px;
+}
+.authContainer .rowStyle {
+  justify-content: center;
+}
+.authContainer .formStyle {
+  align-content: center;
+  margin-top: 8px;
+  background-color: white;
+  padding: 30px;
+  border-radius: 12px;
+}
+.authContainer .controlStyle {
+  margin-bottom: 8px;
+}
+.authContainer h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  margin-top: 35px;
+}
+.authContainer .groupStyle {
+}
+.authContainer .lastGroupStyle {
+  margin-top: 12px;
+  text-align: center;
+}
+
+.authContainer button {
+  width: 100%;
+  background-color: firebrick;
+  text-transform: uppercase;
+}
+.authContainer button:hover {
+  width: 100%;
+  background-color: red;
+  text-transform: uppercase;
+}
+
 .postMain {
   display: flex;
   flex-direction: row;

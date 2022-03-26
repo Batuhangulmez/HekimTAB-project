@@ -4,12 +4,13 @@ import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { signUp, Login } from "../actions/userActions";
 
-import { useNavigate } from "react-router-dom";
 import Message from "../Components/Message.js";
 
+import Logo from "../images/Logo.png";
+import styles from "../mystyle.module.css";
+
 const myStyle = {
-  rowStyle: "justify-content-center",
-  formStyle: "align-content-center mt-3",
+  groupStyle: "flex ",
   controlStyle: "mb-2",
   h2Style: "text-center mb-3",
 };
@@ -32,17 +33,19 @@ const AuthScreen = () => {
   });
   const [login, setLogin] = useState(true);
 
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   return (
     <>
-      <Container className="authContainer">
-        <Row className={myStyle.rowStyle}>
+      <Container className={styles.authContainer}>
+        <div className={styles.logoContainer}>
+          <img src={Logo} alt=" Logo" className={styles.Logo} />
+        </div>
+        <Row className={styles.rowStyle}>
           <Col xs={12} md={6}>
             {login ? (
               <Form
-                className={myStyle.formStyle}
+                className={styles.formStyle}
                 onSubmit={(e) => {
                   e.preventDefault();
 
@@ -66,12 +69,12 @@ const AuthScreen = () => {
                       });
                   }} */}
 
-                <h2 className={myStyle.h2Style}>Giriş Yap</h2>
+                <h2>Giriş Yap</h2>
                 {error && <Message>{error}</Message>}
-                <Form.Group>
+                <Form.Group className={styles.groupStyle}>
                   <Form.Label> Email</Form.Label>
                   <Form.Control
-                    className={myStyle.controlStyle}
+                    className={styles.controlStyle}
                     type="email"
                     placeholder="Email Adresi"
                     name="email"
@@ -81,10 +84,10 @@ const AuthScreen = () => {
                   />
                 </Form.Group>
 
-                <Form.Group>
+                <Form.Group className={styles.groupStyle}>
                   <Form.Label>Şifre</Form.Label>
                   <Form.Control
-                    className={myStyle.controlStyle}
+                    className={styles.controlStyle}
                     type="password"
                     placeholder="Şifre"
                     name="password"
@@ -93,10 +96,10 @@ const AuthScreen = () => {
                     }
                   />
                 </Form.Group>
-                <Button block type="submit">
+                <Button className="button" type="submit">
                   giriş yap
                 </Button>
-                <Form.Group>
+                <Form.Group className={styles.lastGroupStyle}>
                   <Form.Label>
                     Henüz bir hesabın yok mu ?{" "}
                     <span
@@ -111,18 +114,18 @@ const AuthScreen = () => {
               </Form>
             ) : (
               <Form
-                className={myStyle.controlStyle}
+                className={styles.formStyle}
                 onSubmit={(e) => {
                   e.preventDefault();
                   dispatch(signUp(form));
                 }}
               >
-                <h2 className={myStyle.h2Style}>Kayıt ol</h2>
+                <h2 className={styles.h2Style}>Kayıt ol</h2>
                 {error && <Message>{error}</Message>}
 
                 <Form.Group style={{ display: "flex" }}>
                   <Form.Control
-                    className="m-2"
+                    className={styles.controlStyle}
                     type="text"
                     placeholder="İlk adınız"
                     onChange={(e) =>
@@ -131,7 +134,7 @@ const AuthScreen = () => {
                   ></Form.Control>
 
                   <Form.Control
-                    className="m-2"
+                    className={styles.controlStyle}
                     type="text"
                     placeholder="Soy adınız"
                     onChange={(e) =>
@@ -143,7 +146,7 @@ const AuthScreen = () => {
                 <Form.Group>
                   <Form.Label>Email</Form.Label>
                   <Form.Control
-                    className={myStyle.controlStyle}
+                    className={styles.controlStyle}
                     type="email"
                     placeholder="Email adresinizi girin"
                     onChange={(e) =>
@@ -155,7 +158,7 @@ const AuthScreen = () => {
                 <Form.Group>
                   <Form.Label>Şifre</Form.Label>
                   <Form.Control
-                    className={myStyle.controlStyle}
+                    className={styles.controlStyle}
                     type="password"
                     placeholder="Şifrenizi girin"
                     onChange={(e) =>
@@ -167,7 +170,7 @@ const AuthScreen = () => {
                 <Form.Group>
                   <Form.Label>Şifrenizi doğrulayın</Form.Label>
                   <Form.Control
-                    className={myStyle.controlStyle}
+                    className={styles.controlStyle}
                     type="password"
                     placeholder="Şifrenizi doğrulayın"
                     onChange={(e) =>
@@ -179,16 +182,17 @@ const AuthScreen = () => {
                 <Button block type="submit">
                   Kayıt ol
                 </Button>
-
-                <Form.Text as="large" className="text-center mt-2">
-                  Zaten bir hesabınız var mı?{" "}
-                  <span
-                    onClick={(e) => setLogin(!false)}
-                    style={{ fontWeight: "bold", cursor: "pointer" }}
-                  >
-                    Giriş yapın
-                  </span>
-                </Form.Text>
+                <Form.Group className={styles.lastGroupStyle}>
+                  <Form.Label>
+                    Zaten bir hesabınız var mı?{" "}
+                    <span
+                      onClick={(e) => setLogin(!false)}
+                      style={{ fontWeight: "bold", cursor: "pointer" }}
+                    >
+                      Giriş yapın
+                    </span>
+                  </Form.Label>
+                </Form.Group>
               </Form>
             )}
           </Col>

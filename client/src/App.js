@@ -4,7 +4,6 @@ import Header from "./Components/Header";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Container } from "react-bootstrap";
-import { useState } from "react";
 
 import HomeScreen from "./Screens/HomeScreen";
 import AuthScreen from "./Screens/AuthScreen";
@@ -14,7 +13,7 @@ function App() {
   return (
     <Router>
       <Header />
-      <section className="py-3">
+      <section className="appContainer">
         <Container>
           <Routes>
             <Route path="/" element={<HomeScreen />} exact />
