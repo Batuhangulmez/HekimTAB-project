@@ -1,3 +1,10 @@
+:root {
+  --mainColor: #089bab;
+  --white: #ffffff;
+}
+* {
+  font-weight: 500;
+}
 .homeContainer {
   display: flex;
   flex-direction: column;
@@ -39,8 +46,7 @@
   margin-bottom: 25px;
   margin-top: 35px;
 }
-.authContainer .groupStyle {
-}
+
 .authContainer .lastGroupStyle {
   margin-top: 12px;
   text-align: center;
@@ -56,6 +62,32 @@
   background-color: red;
   text-transform: uppercase;
 }
+.postContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 94vh;
+}
+.postContainer Form {
+  align-content: center;
+  margin-top: 8px;
+  background-color: white;
+  padding: 30px;
+  border-radius: 12px;
+}
+.postContainer .groupStyle {
+  margin-bottom: 8px;
+}
+.postContainer button {
+  width: 100%;
+  background-color: firebrick;
+  text-transform: uppercase;
+}
+.postContainer button:hover {
+  width: 100%;
+  background-color: red;
+  text-transform: uppercase;
+}
 
 .postMain {
   display: flex;
@@ -63,4 +95,86 @@
   justify-content: center;
   align-items: center;
   height: 80vh;
+}
+
+.profileArticle {
+  height: 94vh;
+}
+.profileContent {
+  display: flex;
+  align-items: center;
+  padding: 24px 0;
+}
+.profileASideContent {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  align-content: space-between;
+  border-radius: 24px;
+  margin-top: 24px;
+  padding-bottom: 8px;
+}
+.profileBSideContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 24px;
+  margin-top: 24px;
+  padding-bottom: 8px;
+}
+.profileCard {
+  background-color: #fff;
+  padding: 0 24px 0px 24px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
+  border-radius: 24px;
+}
+.userHeadingContent {
+  display: flex;
+  flex-direction: column;
+  margin: 12px;
+  margin-top: 48px;
+  font-weight: 700;
+}
+.userHeadingContent span {
+  font-style: italic;
+  text-transform: uppercase;
+  color: gray;
+  font-size: small;
+}
+.userImgContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.img {
+  position: absolute;
+  height: 72px;
+  background-color: white;
+  border-radius: 100%;
+  padding: 8px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+}
+.shareCard {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  background-color: #fff;
+  text-decoration: none;
+  border: 1px solid var(--mainColor);
+  border-radius: 24px;
+  padding: 12px;
+}
+.shareCard .icon {
+  font-size: xx-large;
+  margin-right: 12px;
+  color: var(--mainColor);
+}
+.shareCard .text {
+  text-align: center;
+  color: black;
 }

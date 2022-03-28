@@ -32,14 +32,19 @@ const Header = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link className="text-white">Anasayfa</Nav.Link>
-            <Nav.Link className="text-white">Profil</Nav.Link>
+
             {user ? (
-              <Nav.Link as={Link} to="/post" className="text-white">
-                Paylaş
-              </Nav.Link>
+              <Nav>
+                <Nav.Link as={Link} to="/post" className="text-white">
+                  Paylaş
+                </Nav.Link>
+                <Nav.Link as={Link} to="/profile" className="text-white">
+                  Profil
+                </Nav.Link>
+              </Nav>
             ) : undefined}
             <NavDropdown
-              title={<span className="text-white"> Hakkımızda</span>}
+              title={<span className="text-white">Hakkımızda</span>}
               id="basic-nav-dropdown"
             >
               <NavDropdown.Item>Duyurular</NavDropdown.Item>

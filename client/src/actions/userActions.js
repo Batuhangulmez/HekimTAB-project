@@ -28,7 +28,6 @@ export const Login = (formData, history) => async (dispatch) => {
     const { data } = await api.Login(formData);
 
     dispatch({ type: AUTH, payload: data });
-    history.push("/");
   } catch (error) {
     dispatch({
       type: SIGNIN_FAIL,
