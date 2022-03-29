@@ -1,6 +1,9 @@
-import React from "react";
-import { Col, Row } from "react-bootstrap";
+import React, { useEffect } from "react";
+import { Carousel, Col, Row, Spinner } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { fetchPosts } from "../actions/postActions";
+import Post from "../Components/Post";
 import Logo from "../images/Logo.png";
 import styles from "../mystyle.module.css";
 
@@ -11,6 +14,13 @@ const ProfileScreen = () => {
     profession: "Kardiyoloji",
     image: "../images/Logo.png",
   };
+
+  const dispatch = useDispatch();
+  const posts = useSelector((state) => state.posts);
+
+  useEffect(() => {
+    dispatch(fetchPosts());
+  }, [dispatch]);
   // <img src={Logo} alt="Profile Image" />
   return (
     <article className={styles.profileArticle}>
@@ -50,6 +60,29 @@ const ProfileScreen = () => {
           </Row>
         </Col>
       </Row>
+      {!posts.length ? (
+        <Spinner animation="border" />
+      ) : (
+        <Row>
+          <Carousel variant="dark">
+            {posts.map((post) => (
+              <Carousel.Item>
+                <div style={{ height: "250px" }} />
+                <Carousel.Caption
+                  sm={12}
+                  md={12}
+                  lg={12}
+                  xl={12}
+                  className="m-auto"
+                  key={post._id}
+                >
+                  <Post post={post} />
+                </Carousel.Caption>
+              </Carousel.Item>
+            ))}
+          </Carousel>
+        </Row>
+      )}
     </article>
   );
 };

@@ -23,7 +23,7 @@ export const signUp = (formData) => async (dispatch) => {
   }
 };
 
-export const Login = (formData, history) => async (dispatch) => {
+export const Login = (formData) => async (dispatch) => {
   try {
     const { data } = await api.Login(formData);
 

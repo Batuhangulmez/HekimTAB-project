@@ -1,6 +1,7 @@
 :root {
   --mainColor: #089bab;
   --white: #ffffff;
+  --cardShadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
 }
 * {
   font-weight: 500;
@@ -126,7 +127,7 @@
 .profileCard {
   background-color: #fff;
   padding: 0 24px 0px 24px;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
+  box-shadow: var(--cardShadow);
   border-radius: 24px;
 }
 .userHeadingContent {
@@ -149,7 +150,7 @@
   position: relative;
 }
 
-.img {
+.userImgContainer .img {
   position: absolute;
   height: 72px;
   background-color: white;
@@ -177,4 +178,32 @@
 .shareCard .text {
   text-align: center;
   color: black;
+}
+
+/* Post Card Styles */
+
+.postContent {
+  margin: 8px;
+  border-radius: 24px;
+}
+.postContent .header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+}
+.postContent .img {
+  width: 56px;
+  margin-right: 14px;
+}
+.postContent text {
+  font-weight: 700;
+  text-transform: capitalize;
+}
+.postContent span {
+  text-transform: capitalize;
+  color: var(--mainColor);
 }
