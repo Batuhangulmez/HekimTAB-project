@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { signUp, Login } from "../actions/userActions";
 
 import Message from "../Components/Message.js";
@@ -33,7 +34,16 @@ const AuthScreen = () => {
   });
   const [login, setLogin] = useState(true);
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const loginSubmit = async (id) => {
+    await dispatch(Login(loginform));
+  };
+
+  useEffect(() => {
+    if (localStorage.getItem("user")) navigate("/");
+  }, [userState]);
 
   return (
     <>
@@ -48,8 +58,7 @@ const AuthScreen = () => {
                 className={styles.formStyle}
                 onSubmit={(e) => {
                   e.preventDefault();
-
-                  dispatch(Login(loginform));
+                  loginSubmit();
                 }}
               >
                 {/* onSubmit={(e) => {

@@ -4,21 +4,20 @@ import { useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { logout } from "../actions/userActions.js";
 
-const Header = () => {
+const Header = ({ onhandleUser, user }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const [user, setUser] = useState();
 
   const exit = async (id) => {
     await dispatch(logout(id));
-    setUser(null);
-    navigate("/");
+    onhandleUser(null);
+    navigate("/auth");
   };
 
-  useEffect(() => {
+  useEffect(async () => {
     if (localStorage.getItem("user") && !user) {
-      setUser(JSON.parse(localStorage.getItem("user")));
+      onhandleUser(JSON.parse(localStorage.getItem("user")));
     }
   }, [location, user]);
 

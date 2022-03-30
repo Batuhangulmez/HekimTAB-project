@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import Post from "../Components/Post";
 import styles from "../mystyle.module.css";
+import { Navigate } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPosts } from "../actions/postActions";
