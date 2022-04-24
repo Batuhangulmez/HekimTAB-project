@@ -1,7 +1,7 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "./Components/Header";
-
+import { AUTH } from "./constans/actionsConstant";
 import {
   BrowserRouter as Router,
   Routes,
@@ -15,7 +15,8 @@ import HomeScreen from "./Screens/HomeScreen";
 import AuthScreen from "./Screens/AuthScreen";
 import PostScreen from "./Screens/PostScreen";
 import ProfileScreen from "./Screens/ProfileScreen";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
 const ProtectedRoute = ({ user, redirectPath = "/auth", children }) => {
   if (!user) {
@@ -28,6 +29,10 @@ const ProtectedRoute = ({ user, redirectPath = "/auth", children }) => {
 function App() {
   const [user, setUser] = useState();
   const handleUser = (value) => setUser(value);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (user) dispatch({ type: AUTH, payload: user });
+  }, [user]);
 
   return (
     <Router>
