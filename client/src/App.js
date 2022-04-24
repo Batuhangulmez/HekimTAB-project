@@ -42,7 +42,6 @@ function App() {
               <Route path="/profile" element={<ProfileScreen />} />
             </Route>
           </Routes>
-          <Routes></Routes>
         </Container>
       </section>
     </Router>

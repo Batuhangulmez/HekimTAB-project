@@ -2,24 +2,21 @@ import React, { useEffect } from "react";
 import { Carousel, Col, Row, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { fetchPosts } from "../actions/postActions";
+import { fetchPostUser } from "../actions/postActions";
 import Post from "../Components/Post";
 import Logo from "../images/Logo.png";
 import styles from "../mystyle.module.css";
 
 const ProfileScreen = () => {
-  const { fullName, title, profession } = {
-    fullName: "Batuhan Gülmez",
-    title: "Uzm. Dr.",
-    profession: "Kardiyoloji",
-    image: "../images/Logo.png",
-  };
+  const { fullname, title, profession } = useSelector(
+    (state) => state.user.userData.user
+  );
 
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
 
   useEffect(() => {
-    dispatch(fetchPosts());
+    dispatch(fetchPostUser(fullname));
   }, [dispatch]);
   // <img src={Logo} alt="Profile Image" />
   return (
@@ -32,7 +29,7 @@ const ProfileScreen = () => {
             </div>
             <span className={styles.userHeadingContent}>
               {title}
-              {fullName}
+              {fullname}
               <span>{profession}</span>
             </span>
           </div>

@@ -42,7 +42,9 @@ const AuthScreen = () => {
   };
 
   useEffect(() => {
-    if (localStorage.getItem("user")) navigate("/");
+    if (localStorage.getItem("user")) {
+      navigate("/");
+    }
   }, [userState]);
 
   return (

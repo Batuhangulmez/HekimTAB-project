@@ -133,6 +133,7 @@
 .userHeadingContent {
   display: flex;
   flex-direction: column;
+  text-transform: capitalize;
   margin: 12px;
   margin-top: 48px;
   font-weight: 700;
