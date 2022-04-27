@@ -33,10 +33,10 @@ router.get("/:id", async (req, res) => {
 
 // get user profil post from database
 
-router.get("/user/:creator", async (req, res) => {
+router.get("/user/:creatorId", async (req, res) => {
   try {
-    const { creator } = req.params;
-    const post = await Post.find({ creator: creator });
+    const { creatorId } = req.params;
+    const post = await Post.find({ creatorId: creatorId });
     res.status(200).json(post);
   } catch (error) {
     res.status(404).json({ message: "post not found" });

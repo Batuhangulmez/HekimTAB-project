@@ -8,7 +8,7 @@ import Logo from "../images/Logo.png";
 import styles from "../mystyle.module.css";
 
 const ProfileScreen = () => {
-  const { fullname, title, profession } = useSelector(
+  const { fullname, title, profession, _id } = useSelector(
     (state) => state.user.userData.user
   );
 
@@ -16,7 +16,7 @@ const ProfileScreen = () => {
   const posts = useSelector((state) => state.posts);
 
   useEffect(() => {
-    dispatch(fetchPostUser(fullname));
+    dispatch(fetchPostUser(_id));
   }, [dispatch]);
   // <img src={Logo} alt="Profile Image" />
   return (

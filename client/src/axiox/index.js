@@ -14,8 +14,8 @@ export const logOut = async (id) => await API.get(`/users/logout/${id}`);
 
 export const fetchPosts = async () => await API.get("/posts");
 
-export const fetchPostUser = async (creator) =>
-  await API.get(`/posts/user/${creator}`);
+export const fetchPostUser = async (creatorId) =>
+  await API.get(`/posts/user/${creatorId}`);
 
 export const createPost = async (newPost) => await API.post("/posts", newPost);
 

@@ -8,6 +8,7 @@ import {
   Route,
   Navigate,
   Outlet,
+  useLocation,
 } from "react-router-dom";
 import { Container } from "react-bootstrap";
 

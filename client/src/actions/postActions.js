@@ -14,9 +14,9 @@ export const fetchPosts = () => async (dispatch) => {
     console.log(error);
   }
 };
-export const fetchPostUser = (creator) => async (dispatch) => {
+export const fetchPostUser = (creatorId) => async (dispatch) => {
   try {
-    const { data } = await api.fetchPostUser(creator);
+    const { data } = await api.fetchPostUser(creatorId);
     dispatch({ type: FETCH_ALL_USER_POSTS, payload: data });
   } catch (error) {
     console.log(error);
