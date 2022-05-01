@@ -22,7 +22,7 @@ const Header = ({ onhandleUser, user }) => {
   }, [location, user]);
 
   return (
-    <Navbar bg="primary" expand="lg" collapseOnSelect>
+    <Navbar style={{ backgroundColor: "#089BAB" }} expand="lg" collapseOnSelect>
       <Container>
         <Link to="/" className="text-white text-decoration-none">
           <Navbar.Brand>HekimTAB</Navbar.Brand>

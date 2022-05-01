@@ -45,8 +45,9 @@ const HomeScreen = () => {
         id="controlled-tab-example"
         activeKey={currentType}
         onSelect={(k) => setCurrentType(k)}
-        className="mb-3"
+        className=" mb-3 justify-content-center"
       >
+        <Tab disabled title="İçerik Türü"></Tab>
         <Tab eventKey="Hepsi" title="Hepsi">
           <Tab.Container
             id="left-tabs-example"
@@ -56,6 +57,7 @@ const HomeScreen = () => {
             <Row>
               <Col sm={3}>
                 <Nav variant="pills" className="flex-column">
+                  <Nav.Item>Kategoriler</Nav.Item>
                   <Nav.Item>
                     <Nav.Link eventKey="Hepsi">Hepsi</Nav.Link>
                   </Nav.Item>
