@@ -209,7 +209,7 @@
   color: var(--mainColor);
 }
 
-.postCommetBody {
+.postCommentBody {
   border-left: 3px solid #5c636a;
   margin-left: 12px;
 }

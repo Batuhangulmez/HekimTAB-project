@@ -38,7 +38,16 @@ const Post = ({ post }) => {
           </Card.Title>
           <Card.Text>{post.content}</Card.Text>
         </Modal.Body>
-        <Modal.Body className={styles.postCommetBody}>
+        <Modal.Body className={styles.postCommentBody}>
+          <div>
+            <img src={Logo} className={styles.img} alt="img" />
+            <text>{post.creator}</text>
+          </div>
+          <Modal.Body>
+            <Card.Text>{post.content}</Card.Text>
+          </Modal.Body>
+        </Modal.Body>
+        <Modal.Body className={styles.postCommentBody}>
           <div>
             <img src={Logo} className={styles.img} alt="img" />
             <text>{post.creator}</text>
