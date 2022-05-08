@@ -9,7 +9,8 @@ import * as api from "../axiox";
 export const fetchPosts = () => async (dispatch) => {
   try {
     const { data } = await api.fetchPosts();
-    dispatch({ type: FETCH_ALL, payload: data });
+    const reverseData = data.reverse();
+    dispatch({ type: FETCH_ALL, payload: reverseData });
   } catch (error) {
     console.log(error);
   }

@@ -21,6 +21,7 @@ const postSchema = mongoose.Schema({
     type: String,
     require: true,
   },
+  comments: [{ creatorId: String, body: String, title: String }],
   image: {
     type: String,
   },
