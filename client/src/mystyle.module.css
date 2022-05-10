@@ -1,5 +1,9 @@
 :root {
   --mainColor: #089bab;
+  --secondaryColor: #98e3ec;
+  --grayColor: #808080;
+  --redColor: #fd9a8d;
+  --yellowColor: #fead54;
   --white: #ffffff;
   --cardShadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
 }
@@ -184,11 +188,15 @@
 /* Post Card Styles */
 
 .postContent {
-  margin: 8px;
+  padding-top: 8px;
+  margin: 6px;
   border-radius: 24px;
+  border: none;
+  border-left: 5px solid;
 }
 .postContent .header {
   display: flex;
+  border: none;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
@@ -196,6 +204,14 @@
   border-top-left-radius: 24px;
   border-top-right-radius: 24px;
 }
+.postContent .header div {
+  display: flex;
+}
+.postContent .header div div {
+  display: flex;
+  flex-direction: column;
+}
+
 .postContent .img {
   width: 56px;
   margin-right: 14px;
@@ -205,6 +221,12 @@
   text-transform: capitalize;
 }
 .postContent span {
+  font-weight: 500;
+  font-size: small;
+  text-transform: capitalize;
+  color: var(--grayColor);
+}
+.postContent article {
   text-transform: capitalize;
   color: var(--mainColor);
 }
@@ -212,4 +234,8 @@
 .postCommentBody {
   border-left: 3px solid #5c636a;
   margin-left: 12px;
+}
+.postCommentFooter {
+  display: flex;
+  flex-direction: row;
 }
