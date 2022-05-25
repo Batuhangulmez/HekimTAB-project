@@ -6,12 +6,15 @@ import { fetchPosts } from "../actions/postActions";
 
 import { Spinner, Row, Col, Tabs, Tab, Nav } from "react-bootstrap";
 import { PostViewAll, PostViewSingle } from "../Components/PostView";
+import { isAccordionItemSelected } from "react-bootstrap/esm/AccordionContext";
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
+
   const [currentType, setCurrentType] = useState("Hepsi");
   const [currentCategory, setCurrentCategory] = useState("Hepsi");
+
   const [postMetin, setPostMetin] = useState([]);
   const [postCase, setPostCase] = useState([]);
   const [postMedical, setPostMedical] = useState([]);
@@ -56,34 +59,53 @@ const HomeScreen = () => {
           >
             <Row>
               <Col sm={3}>
-                <Nav variant="pills" className="flex-column">
-                  <Nav.Item>Kategoriler</Nav.Item>
-                  <Nav.Item>
-                    <Nav.Link eventKey="Hepsi">Hepsi</Nav.Link>
+                <Nav className={styles.homeCategoryNav}>
+                  <Nav.Item disabled className={styles.categoryTitle}>
+                    Kategoriler
                   </Nav.Item>
-                  <Nav.Item>
-                    <Nav.Link eventKey="Ağız,Çene ve Diş Sağlığı">
+                  <Nav.Item className={styles.NavBorder}>
+                    <Nav.Link className={styles.NavItem} eventKey="Hepsi">
+                      Hepsi
+                    </Nav.Link>
+                  </Nav.Item>
+                  <Nav.Item className={styles.NavBorder}>
+                    <Nav.Link
+                      className={styles.NavItem}
+                      eventKey="Ağız,Çene ve Diş Sağlığı"
+                    >
                       Ağız,Çene ve Diş Sağlığı
                     </Nav.Link>
                   </Nav.Item>
-                  <Nav.Item>
-                    <Nav.Link eventKey="Beslenme ve Diyet">
+                  <Nav.Item className={styles.NavBorder}>
+                    <Nav.Link
+                      className={styles.NavItem}
+                      eventKey="Beslenme ve Diyet"
+                    >
                       Beslenme ve Diyet
                     </Nav.Link>
                   </Nav.Item>
-                  <Nav.Item>
-                    <Nav.Link eventKey="Cildiye">Cildiye</Nav.Link>
+                  <Nav.Item className={styles.NavBorder}>
+                    <Nav.Link className={styles.NavItem} eventKey="Cildiye">
+                      Cildiye
+                    </Nav.Link>
                   </Nav.Item>
-                  <Nav.Item>
-                    <Nav.Link eventKey="Göz Hastalıkları">
+                  <Nav.Item className={styles.NavBorder}>
+                    <Nav.Link
+                      className={styles.NavItem}
+                      eventKey="Göz Hastalıkları"
+                    >
                       Göz Hastalıkları
                     </Nav.Link>
                   </Nav.Item>
-                  <Nav.Item>
-                    <Nav.Link eventKey="Kardiyoloji">Kardiyoloji</Nav.Link>
+                  <Nav.Item className={styles.NavBorder}>
+                    <Nav.Link className={styles.NavItem} eventKey="Kardiyoloji">
+                      Kardiyoloji
+                    </Nav.Link>
                   </Nav.Item>
-                  <Nav.Item>
-                    <Nav.Link eventKey="Ortodonti">Ortodonti</Nav.Link>
+                  <Nav.Item className={styles.NavBorder}>
+                    <Nav.Link className={styles.NavItem} eventKey="Ortodonti">
+                      Ortodonti
+                    </Nav.Link>
                   </Nav.Item>
                 </Nav>
               </Col>

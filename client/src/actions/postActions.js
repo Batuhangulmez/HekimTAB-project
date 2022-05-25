@@ -3,6 +3,7 @@ import {
   CREATE,
   FETCH_ALL_USER_POSTS,
   DELETE,
+  GET_COMMENT,
 } from "../constans/actionsConstant";
 import * as api from "../axiox";
 
@@ -39,6 +40,15 @@ export const deletePost = (id) => async (dispatch) => {
     await api.deletePost(id);
 
     dispatch({ type: DELETE, payload: id });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const pushComment = (id, comment) => async (dispatch) => {
+  try {
+    await api.pushComment(id, comment);
+    dispatch({ type: GET_COMMENT });
   } catch (error) {
     console.log(error);
   }

@@ -19,7 +19,7 @@ export const fetchPostUser = async (creatorId) =>
 
 export const createPost = async (newPost) => await API.post("/posts", newPost);
 
-export const updatePost = async (id, updatePost) =>
+export const pushComment = async (id, updatePost) =>
   await API.put(`/posts/${id}`, updatePost);
 
 export const deletePost = async (id) => await API.delete(`/posts/${id}`);

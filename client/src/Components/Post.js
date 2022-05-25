@@ -5,7 +5,7 @@ import { Card, Button, CloseButton, Modal, Form } from "react-bootstrap";
 
 import { useDispatch } from "react-redux";
 
-import { deletePost } from "../actions/postActions";
+import { deletePost, pushComment } from "../actions/postActions";
 
 import Logo from "../images/Logo.png";
 
@@ -17,6 +17,13 @@ const Post = ({ post }) => {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const [comment, setComment] = useState({
+    creatorId: "",
+    body: "",
+    title: "",
+    creatorName: "",
+  });
 
   useEffect(() => {
     switch (post.type) {
@@ -34,6 +41,17 @@ const Post = ({ post }) => {
     }
   }, []);
 
+  const getCommentContent = () => {
+    let { fullname, _id, title } = JSON.parse(
+      localStorage.getItem("user")
+    ).user;
+    setComment({
+      ...comment,
+      creatorId: _id,
+      title: title,
+      creatorName: fullname,
+    });
+  };
   return (
     <>
       <Modal
@@ -77,19 +95,33 @@ const Post = ({ post }) => {
           </Modal.Body>
         </Modal.Body>
         <Modal.Body>
-          <Form>
+          <Form
+            onSubmit={async (e) => {
+              e.preventDefault();
+              getCommentContent();
+              await dispatch(pushComment(post._id, comment));
+            }}
+          >
             <Form.Group className="" controlId="exampleForm.ControlInput1">
               <Form.Label>Yorum Yaz</Form.Label>
-              <Form.Control type="textarea" placeholder="..." />
+              <Form.Control
+                type="textarea"
+                placeholder="..."
+                onChange={(e) =>
+                  setComment({ ...comment, body: e.target.value })
+                }
+              />
             </Form.Group>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleClose}>
+                İptal
+              </Button>
+              <Button variant="primary" type="submit">
+                Gönder
+              </Button>
+            </Modal.Footer>
           </Form>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            İptal
-          </Button>
-          <Button variant="primary">Gönder</Button>
-        </Modal.Footer>
       </Modal>
       <Card
         onClick={handleShow}

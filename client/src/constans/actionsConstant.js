@@ -8,3 +8,4 @@ export const SIGNIN_FAIL = "SIGNIN_FAIL";
 export const SIGNUP_FAIL = "SIGNUP_FAIL";
 export const LOGOUT = "LOGOUT";
 export const LOGOUT_FAILED = "LOGOUT_FAILED";
+export const GET_COMMENT = "GET_COMMENT";

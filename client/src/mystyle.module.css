@@ -1,5 +1,6 @@
 :root {
-  --mainColor: #089bab;
+  --mainColor: #078a96;
+  --transparentColor: #2eaab7;
   --secondaryColor: #98e3ec;
   --grayColor: #808080;
   --redColor: #fd9a8d;
@@ -10,10 +11,29 @@
 * {
   font-weight: 500;
 }
+/*    Home page   */
 .homeContainer {
   display: flex;
   flex-direction: column;
 }
+.homeCategoryNav {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 24px;
+  box-shadow: var(--cardShadow);
+}
+.NavBorder :active {
+  background-color: #078a96;
+}
+
+.categoryTitle {
+  display: flex;
+  justify-content: center;
+  margin: 4px;
+  color: var(--mainColor);
+}
+
 .authContainer {
   display: flex;
   flex-direction: column;
@@ -192,7 +212,9 @@
   margin: 6px;
   border-radius: 24px;
   border: none;
-  border-left: 5px solid;
+  border-left: 10px solid;
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
 }
 .postContent .header {
   display: flex;
