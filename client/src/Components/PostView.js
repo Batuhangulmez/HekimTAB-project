@@ -34,7 +34,7 @@ export const PostViewSingle = ({ posts, category }) => {
         <Spinner animation="border" />
       ) : (
         <Row>
-          {posts.map((post) =>
+          {posts.reverse().map((post) =>
             post.category !== category ? undefined : (
               <Col
                 sm={12}

@@ -22,4 +22,7 @@ export const createPost = async (newPost) => await API.post("/posts", newPost);
 export const pushComment = async (id, updatePost) =>
   await API.put(`/posts/${id}`, updatePost);
 
+export const deleteComment = async (id, commentId) =>
+  await API.put(`/posts/${id}/comment/${commentId}`);
+
 export const deletePost = async (id) => await API.delete(`/posts/${id}`);

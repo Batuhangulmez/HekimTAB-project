@@ -57,7 +57,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-// update a post
+//  post comments adding
 router.put("/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -83,7 +83,30 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-// post comments adding
+// post comment deleted
+router.put("/:id/comment/:commentId", async (req, res) => {
+  try {
+    const { id, commentId } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id))
+      res.status(404).json({ message: "post id is not valid" });
+
+    const updatePost = await Post.updateMany(
+      { _id: id },
+      {
+        $pull: {
+          comments: { _id: commentId },
+        },
+      },
+      { new: true }
+    );
+
+    res.status(200).json(updatePost);
+  } catch (error) {
+    console.log(error);
+    res.json({ message: "update failed" });
+  }
+});
 
 // delete a post
 router.delete("/:id", async (req, res) => {

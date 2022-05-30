@@ -53,3 +53,11 @@ export const pushComment = (id, comment) => async (dispatch) => {
     console.log(error);
   }
 };
+export const deleteComment = (id, comment) => async (dispatch) => {
+  try {
+    await api.deleteComment(id, comment);
+    dispatch({ type: GET_COMMENT });
+  } catch (error) {
+    console.log(error);
+  }
+};
