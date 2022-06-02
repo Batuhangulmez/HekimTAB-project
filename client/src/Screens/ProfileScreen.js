@@ -22,7 +22,7 @@ const ProfileScreen = () => {
   return (
     <article className={styles.profileArticle}>
       <Row className={styles.profileContent}>
-        <Col md={4} className={styles.profileASideContent}>
+        <Col className={styles.profileASideContent}>
           <div className={styles.profileCard}>
             <div className={styles.userImgContainer}>
               <img src={Logo} className={styles.img} alt="img" />
@@ -34,7 +34,7 @@ const ProfileScreen = () => {
             </span>
           </div>
         </Col>
-        <Col md={8} className={styles.profileBSideContent}>
+        {/* <Col md={8} className={styles.profileBSideContent}>
           <Row style={{ width: "100%" }}>
             <Col sd={4}>
               <Link to="/post" className={styles.shareCard}>
@@ -55,7 +55,7 @@ const ProfileScreen = () => {
               </div>
             </Col>
           </Row>
-        </Col>
+        </Col> */}
       </Row>
       {!posts.length ? (
         <Spinner animation="border" />
@@ -64,17 +64,18 @@ const ProfileScreen = () => {
           <Carousel variant="dark">
             {posts.map((post) => (
               <Carousel.Item>
-                <div style={{ height: "250px" }} />
-                <Carousel.Caption
-                  sm={12}
-                  md={12}
-                  lg={12}
-                  xl={12}
-                  className="m-auto"
-                  key={post._id}
-                >
-                  <Post post={post} />
-                </Carousel.Caption>
+                <div style={{ minHeight: "30em" }}>
+                  <Carousel.Caption
+                    sm={12}
+                    md={12}
+                    lg={12}
+                    xl={12}
+                    className="m-auto"
+                    key={post._id}
+                  >
+                    <Post post={post} />
+                  </Carousel.Caption>
+                </div>
               </Carousel.Item>
             ))}
           </Carousel>

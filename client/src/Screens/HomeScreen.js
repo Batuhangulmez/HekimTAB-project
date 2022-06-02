@@ -4,8 +4,12 @@ import styles from "../mystyle.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPosts } from "../actions/postActions";
 
-import { Spinner, Row, Col, Tabs, Tab, Nav } from "react-bootstrap";
-import { PostViewAll, PostViewSingle } from "../Components/PostView";
+import { Row, Col, Tabs, Tab, Nav } from "react-bootstrap";
+import {
+  PostSingle,
+  PostViewAll,
+  PostViewSingle,
+} from "../Components/PostView";
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
@@ -20,7 +24,8 @@ const HomeScreen = () => {
 
   useEffect(async () => {
     await dispatch(fetchPosts());
-    filterPosts(posts);
+
+    await filterPosts(posts);
   }, [dispatch]);
 
   const filterPosts = (posts) => {
@@ -40,6 +45,7 @@ const HomeScreen = () => {
       })
     );
   };
+
   return (
     <main className={styles.homeContainer}>
       <h1></h1>
@@ -106,6 +112,11 @@ const HomeScreen = () => {
                       Ortodonti
                     </Nav.Link>
                   </Nav.Item>
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <Nav.Link disabled style={{ color: "#078a96" }}>
+                      Seçili Kategori: {currentCategory}
+                    </Nav.Link>
+                  </div>
                 </Nav>
               </Col>
               <Col sm={9}>
@@ -175,17 +186,36 @@ const HomeScreen = () => {
                       Ortodonti
                     </Nav.Link>
                   </Nav.Item>
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <Nav.Link disabled style={{ color: "#078a96" }}>
+                      Seçili Kategori: {currentCategory}
+                    </Nav.Link>
+                  </div>
                 </Nav>
               </Col>
               <Col sm={9}>
                 <Tab.Content>
-                  <Tab.Pane eventKey="Hepsi">
+                  {/* <Tab.Pane eventKey="Hepsi">
                     <PostViewAll posts={postMetin} />
-                  </Tab.Pane>
-                  <PostViewSingle
-                    posts={postMetin}
-                    category={currentCategory}
-                  />
+                  </Tab.Pane> */}
+                  {!posts.length ? (
+                    <div>Gönderi Yok</div>
+                  ) : (
+                    posts.reverse().map((post) =>
+                      post.type !== "Metin" ? undefined : (
+                        <Col
+                          sm={12}
+                          md={12}
+                          lg={12}
+                          xl={12}
+                          className="m-auto"
+                          key={post._id}
+                        >
+                          <PostSingle posts={post} category={currentCategory} />
+                        </Col>
+                      )
+                    )
+                  )}
                 </Tab.Content>
               </Col>
             </Row>
@@ -247,14 +277,36 @@ const HomeScreen = () => {
                       Ortodonti
                     </Nav.Link>
                   </Nav.Item>
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <Nav.Link disabled style={{ color: "#078a96" }}>
+                      Seçili Kategori: {currentCategory}
+                    </Nav.Link>
+                  </div>
                 </Nav>
               </Col>
               <Col sm={9}>
                 <Tab.Content>
-                  <Tab.Pane eventKey="Hepsi">
+                  {/* <Tab.Pane eventKey="Hepsi">
                     <PostViewAll posts={postCase} />
-                  </Tab.Pane>
-                  <PostViewSingle posts={postCase} category={currentCategory} />
+                  </Tab.Pane> */}
+                  {!posts.length ? (
+                    <div>Gönderi Yok</div>
+                  ) : (
+                    posts.reverse().map((post) =>
+                      post.type !== "Vaka" ? undefined : (
+                        <Col
+                          sm={12}
+                          md={12}
+                          lg={12}
+                          xl={12}
+                          className="m-auto"
+                          key={post._id}
+                        >
+                          <PostSingle posts={post} category={currentCategory} />
+                        </Col>
+                      )
+                    )
+                  )}
                 </Tab.Content>
               </Col>
             </Row>
@@ -316,17 +368,36 @@ const HomeScreen = () => {
                       Ortodonti
                     </Nav.Link>
                   </Nav.Item>
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <Nav.Link disabled style={{ color: "#078a96" }}>
+                      Seçili Kategori: {currentCategory}
+                    </Nav.Link>
+                  </div>
                 </Nav>
               </Col>
               <Col sm={9}>
                 <Tab.Content>
-                  <Tab.Pane eventKey="Hepsi">
+                  {/* <Tab.Pane eventKey="Hepsi">
                     <PostViewAll posts={postMedical} />
-                  </Tab.Pane>
-                  <PostViewSingle
-                    posts={postMedical}
-                    category={currentCategory}
-                  />
+                  </Tab.Pane> */}
+                  {!posts.length ? (
+                    <div>Gönderi Yok</div>
+                  ) : (
+                    posts.reverse().map((post) =>
+                      post.type !== "Medical içerik" ? undefined : (
+                        <Col
+                          sm={12}
+                          md={12}
+                          lg={12}
+                          xl={12}
+                          className="m-auto"
+                          key={post._id}
+                        >
+                          <PostSingle posts={post} category={currentCategory} />
+                        </Col>
+                      )
+                    )
+                  )}
                 </Tab.Content>
               </Col>
             </Row>

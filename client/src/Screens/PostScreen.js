@@ -9,6 +9,7 @@ import { createPost } from "../actions/postActions";
 
 const PostScreen = () => {
   const { fullname, _id } = useSelector((state) => state.user.userData.user);
+
   const [postData, setPostData] = useState({
     category: "",
     content: "",
@@ -17,8 +18,10 @@ const PostScreen = () => {
     creatorId: "",
     type: "",
   });
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   useEffect(() => {
     setPostData({ ...postData, creator: fullname, creatorId: _id });
   }, []);

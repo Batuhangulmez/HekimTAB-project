@@ -22,7 +22,13 @@ const postSchema = mongoose.Schema({
     require: true,
   },
   comments: [
-    { creatorId: String, body: String, creatorName: String, title: String },
+    {
+      creatorId: String,
+      body: String,
+      creatorName: String,
+      title: String,
+      profession: String,
+    },
   ],
   image: {
     type: String,

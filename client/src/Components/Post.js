@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "../mystyle.module.css";
+import { FiMessageSquare } from "react-icons/fi";
 
 import { Card, Button, CloseButton, Modal, Form } from "react-bootstrap";
 
@@ -9,13 +10,19 @@ import {
   deleteComment,
   deletePost,
   fetchPosts,
+  fetchPostUser,
   pushComment,
 } from "../actions/postActions";
 
 import Logo from "../images/Logo.png";
+import { Link, useNavigate } from "react-router-dom";
+import { fetchUserInfo } from "../actions/userActions";
+import moment from "moment";
+import Moment from "react-moment";
 
 const Post = ({ post }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [show, setShow] = useState(false);
   const [typeSelector, setTypeSelector] = useState("");
@@ -23,7 +30,7 @@ const Post = ({ post }) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const { fullname, _id, title } = JSON.parse(
+  const { fullname, _id, title, profession } = JSON.parse(
     localStorage.getItem("user")
   ).user;
 
@@ -32,6 +39,7 @@ const Post = ({ post }) => {
     body: "",
     title: "",
     creatorName: "",
+    profession: "",
   });
 
   useEffect(() => {
@@ -56,6 +64,7 @@ const Post = ({ post }) => {
       creatorId: _id,
       title: title,
       creatorName: fullname,
+      profession: profession,
     });
   };
   return (
@@ -97,20 +106,22 @@ const Post = ({ post }) => {
                   <text>
                     {comment.title} {comment.creatorName}
                   </text>
-                  <span>Ortodonti</span>
+                  <span>{comment.profession}</span>
                 </div>
               </div>
-              {_id == post.creatorId ? (
-                <CloseButton
-                  onClick={(e) => {
-                    dispatch(deleteComment(post._id, comment._id));
-                    handleClose();
-                    window.location.reload();
-                  }}
-                />
+              {_id == comment.creatorId ? (
+                <div>
+                  <CloseButton
+                    onClick={(e) => {
+                      dispatch(deleteComment(post._id, comment._id));
+                      handleClose();
+                      window.location.reload();
+                    }}
+                  />
+                </div>
               ) : undefined}
             </div>
-            <Modal.Body>
+            <Modal.Body style={{ paddingBottom: "1px" }}>
               <Card.Text>{comment.body}</Card.Text>
             </Modal.Body>
           </Modal.Body>
@@ -145,32 +156,67 @@ const Post = ({ post }) => {
         </Modal.Body>
       </Modal>
       <Card
-        onClick={handleShow}
-        style={{ borderColor: typeSelector }}
+        style={{ borderColor: typeSelector, zIndex: 0 }}
         className={styles.postContent}
       >
         <Card.Header className={styles.header}>
           <div>
             <img src={Logo} className={styles.img} alt="img" />
-            <div>
+            <div
+              onClick={() => {
+                dispatch(fetchPostUser(post.creatorId));
+                dispatch(fetchUserInfo(post.creatorId));
+                navigate(`/userInfo/:${post.creatorId}`);
+              }}
+            >
               <text>Uzm. Dr. {post.creator}</text>
               <span>Kardiyoloji</span>
             </div>
           </div>
-          {_id == post.creatorId ? (
-            <CloseButton
-              onClick={() => {
-                dispatch(deletePost(post._id));
-              }}
-            />
-          ) : undefined}
+          <div>
+            {_id == post.creatorId ? (
+              <div style={{ zIndex: 1 }}>
+                <CloseButton
+                  onClick={() => {
+                    dispatch(deletePost(post._id));
+                  }}
+                />
+              </div>
+            ) : undefined}
+          </div>
         </Card.Header>
-        <Card.Body>
-          <Card.Title>
+        <Card.Body onClick={handleShow}>
+          <Card.Title
+            style={{ display: "flex", justifyContent: "space-between" }}
+          >
             <article>{post.category}</article>
+            <Moment
+              style={{ fontSize: "0.7em", color: "gray" }}
+              format="YYYY/MM/DD"
+            >
+              {post.createdAt}
+            </Moment>
           </Card.Title>
           <Card.Text>{post.content}</Card.Text>
         </Card.Body>
+        {post.image ? (
+          <Card.Img
+            className={styles.cardimg}
+            variant="top"
+            src={post.image}
+          ></Card.Img>
+        ) : undefined}
+        <Card.Footer
+          style={{
+            backgroundColor: "white",
+            paddingBottom: "5px",
+            paddingTop: "5px",
+          }}
+        >
+          <div onClick={handleShow} className={styles.messageIcon}>
+            <FiMessageSquare fontSize="1.4em" />
+          </div>
+        </Card.Footer>
       </Card>
     </>
   );

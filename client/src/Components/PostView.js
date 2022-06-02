@@ -53,3 +53,41 @@ export const PostViewSingle = ({ posts, category }) => {
     </div>
   );
 };
+
+export const PostSingle = ({ posts, category }) => {
+  return (
+    <div>
+      {category == "Hepsi" ? (
+        <Row>
+          {
+            <Col
+              sm={12}
+              md={12}
+              lg={12}
+              xl={12}
+              className="m-auto"
+              key={posts._id}
+            >
+              <Post post={posts} />
+            </Col>
+          }
+        </Row>
+      ) : (
+        <Row>
+          {posts.category !== category ? undefined : (
+            <Col
+              sm={12}
+              md={12}
+              lg={12}
+              xl={12}
+              className="m-auto"
+              key={posts._id}
+            >
+              <Post post={posts} />
+            </Col>
+          )}
+        </Row>
+      )}
+    </div>
+  );
+};

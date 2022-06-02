@@ -18,6 +18,7 @@ import PostScreen from "./Screens/PostScreen";
 import ProfileScreen from "./Screens/ProfileScreen";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import UserScreen from "./Screens/UserScreen";
 
 const ProtectedRoute = ({ user, redirectPath = "/auth", children }) => {
   if (!user) {
@@ -46,6 +47,7 @@ function App() {
               <Route path="/" element={<HomeScreen />} />
               <Route path="/post" element={<PostScreen />} />
               <Route path="/profile" element={<ProfileScreen />} />
+              <Route path="/userInfo/:id" element={<UserScreen />} />
             </Route>
           </Routes>
         </Container>

@@ -26,6 +26,8 @@ const AuthScreen = () => {
     email: "",
     password: "",
     confirmPassword: "",
+    profession: "",
+    title: "",
   });
 
   const [loginform, setLoginform] = useState({
@@ -133,6 +135,53 @@ const AuthScreen = () => {
               >
                 <h2 className={styles.h2Style}>Kayıt ol</h2>
                 {error && <Message>{error}</Message>}
+                <Form.Group
+                  style={{
+                    display: "flex",
+                    marginBottom: "12px",
+                  }}
+                >
+                  <Form.Group style={{ flex: 1 }}>
+                    <Form.Label> Uzmanlık Alanı</Form.Label>
+                    <Form.Select
+                      onChange={(e) =>
+                        setForm({ ...form, profession: e.target.value })
+                      }
+                      name="profession"
+                    >
+                      <option>Kategori Seçiniz</option>
+                      <option value="Ağız,Çene ve Diş Sağlığı">
+                        Ağız,Çene ve Diş Sağlığı
+                      </option>
+                      <option value="Beslenme ve Diyet">
+                        Beslenme ve Diyet
+                      </option>
+                      <option value="Cildiye">Cildiye</option>
+                      <option value="Göz Hastalıkları">Göz Hastalıkları</option>
+                      <option value="Kardiyoloji">Kardiyoloji</option>
+                      <option value="Ortodonti">Ortodonti</option>
+                    </Form.Select>
+                  </Form.Group>
+                  <Form.Group style={{ flex: 1 }}>
+                    <Form.Label>Ünvan</Form.Label>
+                    <Form.Select
+                      onChange={(e) =>
+                        setForm({ ...form, title: e.target.value })
+                      }
+                      name="title"
+                    >
+                      <option>Kategori Seçiniz</option>
+                      <option value="Prof. Dr.">Prof. Dr. </option>
+                      <option value="Doç. Dr.">Doç. Dr.</option>
+                      <option value="Dr. Öğr. Üyesi">Dr. Öğr. Üyesi</option>
+                      <option value="Yrd. Doç.">Yrd. Doç.</option>
+                      <option value="Op. Dr.">Op. Dr.</option>
+                      <option value="Uzm. Dr.">Uzm. Dr.</option>
+                      <option value="Dr.">Dr.</option>
+                      <option value="Stajyer Dr.">Stajyer Dr.</option>
+                    </Form.Select>
+                  </Form.Group>
+                </Form.Group>
 
                 <Form.Group style={{ display: "flex" }}>
                   <Form.Control

@@ -261,3 +261,23 @@
   display: flex;
   flex-direction: row;
 }
+.messageIcon {
+  background-color: #ceebee;
+  border-width: 5px;
+  width: fit-content;
+  padding: 5px;
+  color: #078a96;
+  transition: 0.5s ease-out;
+  border-radius: 5px;
+}
+.messageIcon:hover {
+  color: white;
+  background-color: var(--transparentColor);
+}
+.cardimg {
+  max-width: 25em;
+  transition: 0.5s ease-out;
+}
+.cardimg:hover {
+  max-width: 50em;
+}

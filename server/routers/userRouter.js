@@ -10,8 +10,16 @@ const router = express.Router();
 // localhost:3001/users 'a yapılan post isteği
 router.post("/signup", async (req, res) => {
   try {
-    const { firstName, lastName, email, password, confirmPassword, userType } =
-      req.body;
+    const {
+      firstName,
+      lastName,
+      email,
+      password,
+      confirmPassword,
+      profession,
+      title,
+      userType,
+    } = req.body;
 
     const userExists = await User.findOne({ email });
     if (userExists)
@@ -21,12 +29,29 @@ router.post("/signup", async (req, res) => {
       return res.status(400).json({ message: "passwords do not match" });
 
     const hasdedPassword = await bcrypt.hash(password, 2);
+    const getUserType = async () => {
+      if (
+        title == "Prof. Dr." ||
+        title == "Doç. Dr." ||
+        title == "Dr. Öğr. Üyesi"
+      )
+        return "PROFESSOR";
+      else if (
+        title == "Yrd. Doç." ||
+        title == "Op. Dr." ||
+        title == "Uzm. Dr."
+      ) {
+        return "EXPERT";
+      } else return "STUDENT";
+    };
 
     const createdUser = await User.create({
       fullname: `${firstName} ${lastName} `,
       email,
       password: hasdedPassword,
-      userType,
+      userType: await getUserType(),
+      profession,
+      title,
     });
 
     const accessToken = jwt.sign(
@@ -47,7 +72,7 @@ router.post("/signup", async (req, res) => {
       refreshToken: refreshToken,
     });
 
-    return res.status(200).json({ createdUser, accessToken });
+    return res.status(200).json({ user, accessToken });
   } catch (error) {
     return res.json(error);
   }
@@ -107,6 +132,18 @@ router.get("/logout/:id", async (req, res) => {
     res.status(200).json({ message: "logout complete" });
   } catch (error) {
     res.status(500).json(error);
+  }
+});
+
+// get user profil info from database
+
+router.get("/user/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const userInfo = await User.find({ _id: id });
+    res.status(200).json(userInfo[0]);
+  } catch (error) {
+    res.status(404).json({ message: "user not found" });
   }
 });
 

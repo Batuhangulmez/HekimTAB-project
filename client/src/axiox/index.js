@@ -10,6 +10,8 @@ export const Login = async (userData) =>
 export const signUp = async (newUser) =>
   await API.post("/users/signup", newUser);
 
+export const fetchUserInfo = async (_id) => await API.get(`/users/user/${_id}`);
+
 export const logOut = async (id) => await API.get(`/users/logout/${id}`);
 
 export const fetchPosts = async () => await API.get("/posts");

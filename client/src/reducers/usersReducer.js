@@ -4,13 +4,17 @@ import {
   SIGNIN_FAIL,
   LOGOUT,
   LOGOUT_FAILED,
+  GET_USER,
 } from "../constans/actionsConstant";
 
-export default (state = { userData: null }, action) => {
+export default (state = { userData: null, infoUser: {} }, action) => {
   switch (action.type) {
     case AUTH:
       localStorage.setItem("user", JSON.stringify(action.payload));
       return { ...state, userData: action.payload };
+
+    case GET_USER:
+      return { ...state, infoUser: action.payload };
 
     case SIGNIN_FAIL:
       return { error: action.payload };

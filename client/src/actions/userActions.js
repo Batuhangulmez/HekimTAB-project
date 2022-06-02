@@ -4,6 +4,7 @@ import {
   SIGNIN_FAIL,
   LOGOUT,
   LOGOUT_FAILED,
+  GET_USER,
 } from "../constans/actionsConstant";
 import * as api from "../axiox";
 
@@ -36,6 +37,16 @@ export const Login = (formData) => async (dispatch) => {
           ? error.response.data.message
           : error.message,
     });
+  }
+};
+
+export const fetchUserInfo = (_id) => async (dispatch) => {
+  try {
+    const { data } = await api.fetchUserInfo(_id);
+
+    dispatch({ type: GET_USER, payload: data });
+  } catch (error) {
+    console.log(error);
   }
 };
 
