@@ -19,16 +19,32 @@ router.post("/signup", async (req, res) => {
       profession,
       title,
       userType,
+      image,
     } = req.body;
 
     const userExists = await User.findOne({ email });
+
     if (userExists)
-      return res.status(400).json({ message: "user already exists" });
+      return res
+        .status(400)
+        .json({ message: "Daha Önce Mail Adresi Kullanılmış" });
 
     if (password !== confirmPassword)
-      return res.status(400).json({ message: "passwords do not match" });
+      return res.status(400).json({ message: "Şifre Doğrulama Hatalı" });
+
+    if (firstName == "" || lastName == "")
+      return res.status(400).json({ message: "Lütfen adınızı giriniz" });
+
+    if (email == "")
+      return res.status(400).json({ message: "Mail adresi hatalı" });
+
+    if (profession == "" || title == "")
+      return res
+        .status(400)
+        .json({ message: "LÜtfen Doktorluk bilgilerinizi doldurunuz" });
 
     const hasdedPassword = await bcrypt.hash(password, 2);
+
     const getUserType = async () => {
       if (
         title == "Prof. Dr." ||
@@ -45,17 +61,18 @@ router.post("/signup", async (req, res) => {
       } else return "STUDENT";
     };
 
-    const createdUser = await User.create({
+    const user = await User.create({
       fullname: `${firstName} ${lastName} `,
       email,
       password: hasdedPassword,
       userType: await getUserType(),
       profession,
       title,
+      image,
     });
 
     const accessToken = jwt.sign(
-      { email: createdUser.email, id: createdUser._id },
+      { email: user.email, id: user._id },
       process.env.ACCESS_TOKEN_SECRET,
       {
         expiresIn: "3m",
@@ -63,12 +80,12 @@ router.post("/signup", async (req, res) => {
     );
 
     const refreshToken = jwt.sign(
-      { email: createdUser.email, id: createdUser._id },
+      { email: user.email, id: user._id },
       process.env.REFRESH_TOKEN_SECRET
     );
 
     await tokenModel.create({
-      userId: createdUser._id,
+      userId: user._id,
       refreshToken: refreshToken,
     });
 
@@ -84,15 +101,15 @@ router.post("/signin", async (req, res) => {
 
     const user = await User.findOne({ email });
 
-    if (!user) return res.status(404).json({ message: "user not found" });
+    if (!user) return res.status(404).json({ message: "Kullanıcı bulunamadı" });
 
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
     console.log(isPasswordCorrect);
 
     if (!isPasswordCorrect)
-      return res
-        .status(404)
-        .json({ message: "check your login information and try again" });
+      return res.status(404).json({
+        message: "Giriş Yapılamadı Bilgileri Kontrol Edip Tekrar Deneyin",
+      });
 
     const accessToken = jwt.sign(
       { email: user.email, id: user._id },

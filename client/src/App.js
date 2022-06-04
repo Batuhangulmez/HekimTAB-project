@@ -30,8 +30,11 @@ const ProtectedRoute = ({ user, redirectPath = "/auth", children }) => {
 
 function App() {
   const [user, setUser] = useState();
+
   const handleUser = (value) => setUser(value);
+
   const dispatch = useDispatch();
+
   useEffect(() => {
     if (user) dispatch({ type: AUTH, payload: user });
   }, [user]);

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
-
+import ReactFileBase64 from "react-file-base64";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { signUp, Login } from "../actions/userActions";
@@ -28,6 +28,7 @@ const AuthScreen = () => {
     confirmPassword: "",
     profession: "",
     title: "",
+    image: "",
   });
 
   const [loginform, setLoginform] = useState({
@@ -41,6 +42,9 @@ const AuthScreen = () => {
 
   const loginSubmit = async (id) => {
     await dispatch(Login(loginform));
+  };
+  const signUpSubmit = async () => {
+    await dispatch(signUp(form));
   };
 
   useEffect(() => {
@@ -130,7 +134,7 @@ const AuthScreen = () => {
                 className={styles.formStyle}
                 onSubmit={(e) => {
                   e.preventDefault();
-                  dispatch(signUp(form));
+                  signUpSubmit();
                 }}
               >
                 <h2 className={styles.h2Style}>Kayıt ol</h2>
@@ -237,6 +241,21 @@ const AuthScreen = () => {
                       setForm({ ...form, confirmPassword: e.target.value })
                     }
                   ></Form.Control>
+                </Form.Group>
+                <Form.Group
+                  style={{ marginBottom: "12px" }}
+                  className={styles.groupStyle}
+                >
+                  <Form.Label>Profil Fotoğrafı</Form.Label>
+                  <div>
+                    <ReactFileBase64
+                      type="file"
+                      multiple={false}
+                      onDone={({ base64 }) => {
+                        setForm({ ...form, image: base64 });
+                      }}
+                    />
+                  </div>
                 </Form.Group>
 
                 <Button block type="submit">

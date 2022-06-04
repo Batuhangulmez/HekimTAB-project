@@ -14,10 +14,11 @@ import {
   pushComment,
 } from "../actions/postActions";
 
-import Logo from "../images/Logo.png";
+import Logo from "../images/doktor.jpg";
+import KadınDoktor from "../images/doktor kadın.png";
 import { Link, useNavigate } from "react-router-dom";
 import { fetchUserInfo } from "../actions/userActions";
-import moment from "moment";
+
 import Moment from "react-moment";
 
 const Post = ({ post }) => {
@@ -30,7 +31,7 @@ const Post = ({ post }) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const { fullname, _id, title, profession } = JSON.parse(
+  const { fullname, _id, title, profession, image } = JSON.parse(
     localStorage.getItem("user")
   ).user;
 
@@ -40,6 +41,7 @@ const Post = ({ post }) => {
     title: "",
     creatorName: "",
     profession: "",
+    cretorİmage: "",
   });
 
   useEffect(() => {
@@ -65,6 +67,7 @@ const Post = ({ post }) => {
       title: title,
       creatorName: fullname,
       profession: profession,
+      cretorİmage: image,
     });
   };
   return (
@@ -80,8 +83,11 @@ const Post = ({ post }) => {
           <div>
             <img src={Logo} className={styles.img} alt="img" />
             <div>
-              <text>Uzm. Dr.{post.creator}</text>
-              <span>Kardiyoloji</span>
+              <text>
+                {post.creatorTitle}
+                {post.creator}
+              </text>
+              <span>{post.creatorProfession}</span>
             </div>
           </div>
         </Modal.Header>
@@ -101,7 +107,7 @@ const Post = ({ post }) => {
               }}
             >
               <div style={{ display: "flex" }}>
-                <img src={Logo} className={styles.img} alt="img" />
+                <img src={KadınDoktor} className={styles.img} alt="img" />
                 <div style={{ display: "flex", flexDirection: "column" }}>
                   <text>
                     {comment.title} {comment.creatorName}
@@ -169,8 +175,10 @@ const Post = ({ post }) => {
                 navigate(`/userInfo/:${post.creatorId}`);
               }}
             >
-              <text>Uzm. Dr. {post.creator}</text>
-              <span>Kardiyoloji</span>
+              <text>
+                {post.creatorTitle} {post.creator}
+              </text>
+              <span>{post.creatorProfession}</span>
             </div>
           </div>
           <div>

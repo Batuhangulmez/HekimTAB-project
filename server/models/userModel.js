@@ -21,6 +21,9 @@ const userSchema = mongoose.Schema({
     type: String,
     require: true,
   },
+  image: {
+    type: String,
+  },
   userType: {
     type: String,
     enum: ["USER", "STUDENT", "EXPERT", "PROFESSOR", "ADMIN"],

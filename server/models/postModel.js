@@ -21,6 +21,18 @@ const postSchema = mongoose.Schema({
     type: String,
     require: true,
   },
+  creatorProfession: {
+    type: String,
+    require: true,
+  },
+  creatorİmage: {
+    type: String,
+    require: true,
+  },
+  creatorTitle: {
+    type: String,
+    require: true,
+  },
   comments: [
     {
       creatorId: String,
@@ -28,6 +40,7 @@ const postSchema = mongoose.Schema({
       creatorName: String,
       title: String,
       profession: String,
+      cretorİmage: String,
     },
   ],
   image: {

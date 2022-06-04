@@ -79,14 +79,16 @@
 
 .authContainer button {
   width: 100%;
-  background-color: firebrick;
+  background-color: var(--mainColor);
   text-transform: uppercase;
 }
+
 .authContainer button:hover {
   width: 100%;
-  background-color: red;
+  background-color: var(--transparentColor);
   text-transform: uppercase;
 }
+
 .postContainer {
   display: flex;
   flex-direction: column;
@@ -105,12 +107,12 @@
 }
 .postContainer button {
   width: 100%;
-  background-color: firebrick;
+  background-color: var(--mainColor);
   text-transform: uppercase;
 }
 .postContainer button:hover {
   width: 100%;
-  background-color: red;
+  background-color: var(--transparentColor);
   text-transform: uppercase;
 }
 
@@ -178,6 +180,7 @@
 .userImgContainer .img {
   position: absolute;
   height: 72px;
+  width: 72px;
   background-color: white;
   border-radius: 100%;
   padding: 8px;
@@ -236,7 +239,14 @@
 
 .postContent .img {
   width: 56px;
+  border-radius: 100%;
   margin-right: 14px;
+}
+.img {
+  width: 50px;
+}
+.profileİmg {
+  width: 56px;
 }
 .postContent text {
   font-weight: 700;
@@ -275,9 +285,11 @@
   background-color: var(--transparentColor);
 }
 .cardimg {
-  max-width: 25em;
+  max-width: 10em;
+  max-height: 10em;
   transition: 0.5s ease-out;
 }
 .cardimg:hover {
-  max-width: 50em;
+  max-width: 35em;
+  max-height: 35em;
 }

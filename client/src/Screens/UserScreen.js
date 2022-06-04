@@ -19,17 +19,16 @@ const UserScreen = () => {
   };
 
   const user = useSelector((state) => state.user.infoUser);
-
+  const posts = useSelector((state) => state.posts);
   //const posts = useSelector((state) => state.posts);
 
   useEffect(async () => {
-    getİnfo();
+    // getİnfo();
   }, [params.id]);
 
   return (
     <>
-      <div>asdas{!!user.title ? user.title : "b"} </div>
-      {/* {!posts.length ? (
+      {!user ? (
         <Spinner animation="border" />
       ) : (
         <article className={styles.profileArticle}>
@@ -40,9 +39,9 @@ const UserScreen = () => {
                   <img src={Logo} className={styles.img} alt="img" />
                 </div>
                 <span className={styles.userHeadingContent}>
-                  {!!user.title ? user.title : "asdasd"}
-                  {!!user.fullname ? user.title : "asdasd"}
-                  <span>{!!user.profession ? user.title : "asdasd"}</span>
+                  {user.title ? user.title : undefined}
+                  {user.fullname ? user.fullname : undefined}
+                  <span>{user.profession ? user.profession : undefined}</span>
                 </span>
               </div>
             </Col>
@@ -68,7 +67,7 @@ const UserScreen = () => {
             </Carousel>
           </Row>
         </article>
-      )} */}
+      )}
     </>
   );
 };

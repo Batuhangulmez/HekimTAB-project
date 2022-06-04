@@ -8,7 +8,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { createPost } from "../actions/postActions";
 
 const PostScreen = () => {
-  const { fullname, _id } = useSelector((state) => state.user.userData.user);
+  const { fullname, _id, profession, title, userType, image } = useSelector(
+    (state) => state.user.userData.user
+  );
 
   const [postData, setPostData] = useState({
     category: "",
@@ -17,13 +19,23 @@ const PostScreen = () => {
     creator: "",
     creatorId: "",
     type: "",
+    creatorTitle: "",
+    creatorProfession: "",
+    creatorİmage: "",
   });
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setPostData({ ...postData, creator: fullname, creatorId: _id });
+    setPostData({
+      ...postData,
+      creator: fullname,
+      creatorId: _id,
+      creatorProfession: profession,
+      creatorTitle: title,
+      creatorİmage: image,
+    });
   }, []);
 
   return (
@@ -53,6 +65,7 @@ const PostScreen = () => {
               id={1}
             />
             <Form.Check
+              disabled={userType == "STUDENT" ? true : false}
               name="type"
               inline
               type="radio"
@@ -61,6 +74,9 @@ const PostScreen = () => {
               id={2}
             />
             <Form.Check
+              disabled={
+                userType == "STUDENT" || userType == "EXPERT" ? true : false
+              }
               name="type"
               inline
               type="radio"
@@ -111,7 +127,7 @@ const PostScreen = () => {
               }}
             />
           </Form.Group>
-          <Button type="submit" block>
+          <Button className="button" type="submit" block>
             Paylaş
           </Button>
         </Form>
