@@ -81,7 +81,11 @@ const Post = ({ post }) => {
       >
         <Modal.Header closeButton className={styles.header}>
           <div>
-            <img src={Logo} className={styles.img} alt="img" />
+            <img
+              src={post.creatorİmage ? post.creatorİmage : Logo}
+              className={styles.img}
+              alt="img"
+            />
             <div>
               <text>
                 {post.creatorTitle}
@@ -107,7 +111,11 @@ const Post = ({ post }) => {
               }}
             >
               <div style={{ display: "flex" }}>
-                <img src={KadınDoktor} className={styles.img} alt="img" />
+                <img
+                  src={comment.cretorİmage ? comment.cretorİmage : KadınDoktor}
+                  className={styles.img}
+                  alt="img"
+                />
                 <div style={{ display: "flex", flexDirection: "column" }}>
                   <text>
                     {comment.title} {comment.creatorName}
@@ -167,7 +175,11 @@ const Post = ({ post }) => {
       >
         <Card.Header className={styles.header}>
           <div>
-            <img src={Logo} className={styles.img} alt="img" />
+            <img
+              src={post.creatorİmage ? post.creatorİmage : Logo}
+              className={styles.img}
+              alt="img"
+            />
             <div
               onClick={() => {
                 dispatch(fetchPostUser(post.creatorId));

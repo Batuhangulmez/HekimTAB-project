@@ -195,13 +195,10 @@ const HomeScreen = () => {
               </Col>
               <Col sm={9}>
                 <Tab.Content>
-                  {/* <Tab.Pane eventKey="Hepsi">
-                    <PostViewAll posts={postMetin} />
-                  </Tab.Pane> */}
                   {!posts.length ? (
                     <div>Gönderi Yok</div>
                   ) : (
-                    posts.reverse().map((post) =>
+                    posts.map((post) =>
                       post.type !== "Metin" ? undefined : (
                         <Col
                           sm={12}
@@ -286,13 +283,10 @@ const HomeScreen = () => {
               </Col>
               <Col sm={9}>
                 <Tab.Content>
-                  {/* <Tab.Pane eventKey="Hepsi">
-                    <PostViewAll posts={postCase} />
-                  </Tab.Pane> */}
                   {!posts.length ? (
                     <div>Gönderi Yok</div>
                   ) : (
-                    posts.reverse().map((post) =>
+                    posts.map((post) =>
                       post.type !== "Vaka" ? undefined : (
                         <Col
                           sm={12}
@@ -306,6 +300,20 @@ const HomeScreen = () => {
                         </Col>
                       )
                     )
+                    // posts.reverse().map((post) =>
+                    //   post.type !== "Vaka" ? undefined : (
+                    //     <Col
+                    //       sm={12}
+                    //       md={12}
+                    //       lg={12}
+                    //       xl={12}
+                    //       className="m-auto"
+                    //       key={post._id}
+                    //     >
+                    //       <PostSingle posts={post} category={currentCategory} />
+                    //     </Col>
+                    // )
+                    // )
                   )}
                 </Tab.Content>
               </Col>
@@ -383,7 +391,7 @@ const HomeScreen = () => {
                   {!posts.length ? (
                     <div>Gönderi Yok</div>
                   ) : (
-                    posts.reverse().map((post) =>
+                    posts.map((post) =>
                       post.type !== "Medical içerik" ? undefined : (
                         <Col
                           sm={12}
